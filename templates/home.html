@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Nick's Pets</h1>
+
+<div class="row pet-list">
+
+    {% for pet in pets %}
+    <div class="col-3 d-block my-3">
+        <img class="img-thumbnail" src="{{ pet.image_url() }}">
+        <a href="{{ url_for('edit_pet', pet_id=pet.id) }}">
+            <h4>{{pet.name}}</h4>
+        </a>
+
+        <h6>Age: {{ pet.age }}</h6>
+        <p>{{ pet.notes }}</p>
+        {% if pet.available %} <b class="text-success">Available</b> {% else %} <b class="text-danger">Not
+            Available</b>
+        {% endif %}
+
+    </div>
+    {% endfor %}
+</div>
+<form action="/add" methods="GET">
+    <button type="submit" class="btn btn-primary">Add Pet</button>
+</form>
+
+{% endblock %}
